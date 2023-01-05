@@ -9,8 +9,19 @@ public class Turn {
     public static final String TOKEN_X = "X";
     public static final String TOKEN_O = "O";
     public static final String TOKEN_NULL = " ";
+    private String[] tokens = new String[2];
 
-    //---------------------------------------------------------------------------------------------------
+    
+    public Turn() {
+    	this.setToken();
+    }
+    
+    
+    public void setToken() {
+    	tokens[0] = Turn.TOKEN_O;
+        tokens[1] = Turn.TOKEN_X;
+    }
+    
     private void setAlgo() {
         algo = sc.nextLine();
     }
@@ -18,13 +29,13 @@ public class Turn {
         return algo;
     }
 
-    public int getActivePlayer() {
-        return activePlayer = (activePlayer + 1) % 2;
-
+    public String getActivePlayer() {
+    	activePlayer = (activePlayer + 1) % 2;
+    	return tokens[activePlayer];
     }
 
     public void interact() {
-        System.out.println("Escribi algo:");
+        System.out.println("Escribi algo: " + this.getActivePlayer());
         this.setAlgo();
     }
 }

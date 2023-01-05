@@ -4,10 +4,11 @@ public class Board {
     public static final int ROWS = 3;
     public static final int COLUMNS = 3;
     private String[][] gameBoard = new String[Board.ROWS][Board.COLUMNS];
-    //---------------------------------------------------------------------------------------------------
+
+    
     public Board() {}
 
-    //---------------------------------------------------------------------------------------------------
+    
     public String[][] getGameBoard() {
         return gameBoard;
     }

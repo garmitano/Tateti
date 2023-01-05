@@ -4,12 +4,14 @@ import es.games.tateti.models.Board;
 import es.games.tateti.models.Turn;
 
 public class BoardView {
-    private final Board board;
+    final Board board;
 
+    
     public BoardView(Board board) {
         this.board = board;
     }
 
+    
     public void showTitle() {
         System.out.println("Ta Te Ti");
     }
