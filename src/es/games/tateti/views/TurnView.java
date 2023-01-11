@@ -1,25 +1,22 @@
 package es.games.tateti.views;
 
 import java.util.Scanner;
-import es.games.tateti.models.Turn;
 import es.games.tateti.models.Board;
 
 public class TurnView {
     Scanner sc = new Scanner(System.in);
     private int fila;
     private int columna;
-	private final Turn turn;
 	private final Board board;
 
 	
-	public TurnView(Turn turn, Board board) {
-		this.turn = turn;
+	public TurnView(Board board) {
 		this.board = board;
 	}
 	
 	
-    public void interact() {
-    	String activePlayer = this.turn.getActivePlayer();
+    public void interact(String activePlayer) {
+    	
     	System.out.println("Turno del Jugador " + activePlayer);
         do {
 	        do {

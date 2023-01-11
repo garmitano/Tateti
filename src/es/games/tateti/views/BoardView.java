@@ -1,13 +1,16 @@
 package es.games.tateti.views;
 
 import es.games.tateti.models.Board;
+import es.games.tateti.models.Game;
 
 public class BoardView {
     private final Board board;
+    private Game game; 
 
     
-    public BoardView(Board board) {
+    public BoardView(Board board, Game game) {
         this.board = board;
+        this.game = game;
     }
 
     
@@ -25,6 +28,14 @@ public class BoardView {
         }
     }
     
-    
+    public void showResult(String activePlayer) {
+    	if (this.game.isFinished() == true) {
+    		
+    		System.out.print("El ganador es: " + activePlayer + "\n");
+    	} else {
+    		System.out.println("Empate");
+    	}
+    		
+    }
 
 }
