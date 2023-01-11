@@ -15,6 +15,7 @@ public class Board {
     private String[][] gameBoard = new String[Board.ROWS][Board.COLUMNS];
     private String algo;
     
+    
     public Board() {
     	this.setToken();
     }
@@ -46,16 +47,20 @@ public class Board {
             }
         }
     }
-
-    public boolean isFinished(String algo) {
-        this.setAlgo();
-        System.out.println(this.getAlgo());
-    	if(this.getAlgo().equals("L")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+ 
+	public boolean taTeTiLine() {
+		String linea = "";
+		for (int i = 0; i < Board.ROWS; i++) {
+            for (int j = 0; j < Board.COLUMNS; j++) {
+            	linea += this.getGameBoard()[i][j];
+            }
+            if (linea.equals("XXX") || linea.equals("OOO")) {
+            	return true;
+            }
+            linea = "";
+		}
+		return false;
+	}
     
     public boolean isCorrect(int numero) {
     	closedIntervals = new ClosedIntervals(0, Board.COLUMNS);

@@ -1,6 +1,7 @@
 package es.games.tateti.views;
 
 import es.games.tateti.models.Board;
+import es.games.tateti.models.Game;
 import es.games.tateti.models.Turn;
 import es.games.tateti.utils.YesNoDialog;
 
@@ -10,13 +11,15 @@ public class GameView {
     private final Turn turn;
     private final Board board;
 	private final YesNoDialog yesNoDialog;
+	private final Game game;
 
 
     public GameView() {
     	this.turn = new Turn();
         this.board = new Board();
-        this.boardView = new BoardView(this.board);
-        this.turnView = new TurnView(this.turn, this.board);
+        this.game = new Game(this.board);
+        this.boardView = new BoardView(this.board, this.game);
+        this.turnView = new TurnView(this.board);
         this.yesNoDialog = new YesNoDialog();
     }
 
@@ -28,12 +31,15 @@ public class GameView {
     }
     
     public void playGame() {
-        this.boardView.showTitle();
+    	String activePlayer;
+    	this.boardView.showTitle();
         this.board.resetBoard();
         this.boardView.showBoard();
         do {
-            this.turnView.interact();
+        	activePlayer = this.turn.getActivePlayer();
+            this.turnView.interact(activePlayer);
             this.boardView.showBoard();
-        } while(this.board.isFinished(this.board.getAlgo()) != true);
+        } while(this.game.isFinished() != true);
+        this.boardView.showResult(activePlayer);
     }
 }
