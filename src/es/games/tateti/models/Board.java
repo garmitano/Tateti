@@ -48,16 +48,31 @@ public class Board {
         }
     }
  
-	public boolean taTeTiLine() {
-		String linea = "";
+	public boolean taTeTiWin() {
+		String invertedDiagonal = "";
+		String diagonal = "";
+		String row = "";
+		String column = "";
 		for (int i = 0; i < Board.ROWS; i++) {
             for (int j = 0; j < Board.COLUMNS; j++) {
-            	linea += this.getGameBoard()[i][j];
+            	if (i == j) {
+            		diagonal += this.getGameBoard()[i][j];
+            	}
+            	if (i + j == 2) {
+            		invertedDiagonal += this.getGameBoard()[i][j];
+            	}
+            	row += this.getGameBoard()[i][j];
+            	column += this.getGameBoard()[j][i];
             }
-            if (linea.equals("XXX") || linea.equals("OOO")) {
+            if (row.equals("XXX") || row.equals("OOO") || 
+            	column.equals("XXX") || column.equals("OOO") || 
+            	diagonal.equals("XXX") || diagonal.equals("OOO") ||
+            	invertedDiagonal.equals("XXX") || invertedDiagonal.equals("OOO")) {
             	return true;
             }
-            linea = "";
+            row = "";
+            column = "";
+
 		}
 		return false;
 	}

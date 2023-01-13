@@ -18,7 +18,7 @@ public class Game {
             	}
             }
     	}
-    	if(this.board.taTeTiLine() || contador == 6) {
+    	if(this.board.taTeTiWin() || contador == 6) {
     		return true;
     	}else {
     		return false;
