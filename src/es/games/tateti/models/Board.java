@@ -1,32 +1,22 @@
 package es.games.tateti.models;
 
 import java.util.Scanner;
-import es.games.tateti.utils.ClosedIntervals;
 
 public class Board {
-    Scanner sc = new Scanner(System.in);
-    public static final int ROWS = 3;
-    public static final int COLUMNS = 3;
+	Scanner sc = new Scanner(System.in);
     public static final String TOKEN_X = "X";
     public static final String TOKEN_O = "O";
     public static final String TOKEN_NULL = " ";
-    private ClosedIntervals closedIntervals;
     private String[] tokens = new String[2];
-    private String[][] gameBoard = new String[Board.ROWS][Board.COLUMNS];
-    private String algo;
+    private String[][] gameBoard = new String[Coordinates.ROWS][Coordinates.COLUMNS];
+	private Game game;
+	private Coordinates coordinates;
     
     
     public Board() {
     	this.setToken();
     }
     
-    
-	public void setAlgo() {
-		algo = sc.nextLine();
-	}
-    public String getAlgo() {
-        return algo;
-    }
     
     public void setToken() {
     	tokens[0] = Board.TOKEN_O;
@@ -41,8 +31,8 @@ public class Board {
     }
 
     public void resetBoard() {
-        for (int i = 0; i < Board.ROWS; i++) {
-            for (int j = 0; j < Board.COLUMNS; j++) {
+        for (int i = 0; i < Coordinates.ROWS; i++) {
+            for (int j = 0; j < Coordinates.COLUMNS; j++) {
                 gameBoard[i][j] = Board.TOKEN_NULL;
             }
         }
@@ -53,8 +43,8 @@ public class Board {
 		String diagonal = "";
 		String row = "";
 		String column = "";
-		for (int i = 0; i < Board.ROWS; i++) {
-            for (int j = 0; j < Board.COLUMNS; j++) {
+		for (int i = 0; i < Coordinates.ROWS; i++) {
+            for (int j = 0; j < Coordinates.COLUMNS; j++) {
             	if (i == j) {
             		diagonal += this.getGameBoard()[i][j];
             	}
@@ -72,23 +62,22 @@ public class Board {
             }
             row = "";
             column = "";
-
 		}
 		return false;
 	}
-    
-    public boolean isCorrect(int numero) {
-    	closedIntervals = new ClosedIntervals(0, Board.COLUMNS);
-    	return !closedIntervals.isIncluded(numero);
-    }
-
-    public boolean isOccupied(int fila, int columna) {
-    	return !gameBoard[fila-1][columna-1].equalsIgnoreCase(Board.TOKEN_NULL) ;
-    }
     
     public void addToken(int fila, int columna, String activePlayer) {
     	this.gameBoard[fila-1][columna-1] = activePlayer;
     }
     
-    
+    public void moveToken(int fila, int columna, String activePlayer) {
+    	int nuevaFila = 0;
+    	int nuevaColumna = 0;
+    	do {
+    		if (!this.coordinates.isOccupied(fila, columna) == true) {
+    			this.gameBoard[fila][columna] = Board.TOKEN_NULL;
+    			this.gameBoard[nuevaFila][nuevaColumna] = activePlayer; 
+    		}
+    	} while (this.game.isFinished() == true && !this.taTeTiWin() == true);
+    }
 }
