@@ -1,16 +1,14 @@
 package es.games.tateti.views;
 
 import es.games.tateti.models.Board;
-import es.games.tateti.models.Game;
+import es.games.tateti.models.Coordinates;
 
 public class BoardView {
     private final Board board;
-    private Game game; 
 
     
-    public BoardView(Board board, Game game) {
+    public BoardView(Board board) {
         this.board = board;
-        this.game = game;
     }
 
     
@@ -20,8 +18,8 @@ public class BoardView {
 
     public void showBoard() {
         System.out.print("-------------\n");
-        for (int i = 0; i < Board.ROWS; i++) {
-            for (int j = 0; j < Board.COLUMNS; j++) {
+        for (int i = 0; i < Coordinates.ROWS; i++) {
+            for (int j = 0; j < Coordinates.COLUMNS; j++) {
                 System.out.print("| " + this.board.getGameBoard()[i][j] + " ");
             }
             System.out.print("|\n-------------\n");
@@ -29,13 +27,10 @@ public class BoardView {
     }
     
     public void showResult(String activePlayer) {
-    	if (this.game.isFinished() == true) {
-    		
+    	if (this.board.taTeTiWin() == true) {
     		System.out.print("El ganador es: " + activePlayer + "\n");
     	} else {
     		System.out.println("Empate");
-    	}
-    		
+    	}		
     }
-
 }

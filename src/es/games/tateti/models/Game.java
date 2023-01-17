@@ -11,8 +11,8 @@ public class Game {
 	
     public boolean isFinished() {
     	int contador = 0;
-    	for (int i = 0; i < Board.ROWS; i++) {
-            for (int j = 0; j < Board.COLUMNS; j++) {
+    	for (int i = 0; i < Coordinates.ROWS; i++) {
+            for (int j = 0; j < Coordinates.COLUMNS; j++) {
             	if(!this.board.getGameBoard()[i][j].contains(Board.TOKEN_NULL)) {
             		contador++;
             	}
