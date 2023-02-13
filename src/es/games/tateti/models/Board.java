@@ -9,9 +9,7 @@ public class Board {
     public static final String TOKEN_NULL = " ";
     private String[] tokens = new String[2];
     private String[][] gameBoard = new String[Coordinates.ROWS][Coordinates.COLUMNS];
-	private Game game;
-	private Coordinates coordinates;
-    
+
     
     public Board() {
     	this.setToken();
@@ -37,6 +35,23 @@ public class Board {
             }
         }
     }
+    
+    public boolean isMovement() {
+    	int contador = 0;
+    	for (int i = 0; i < Coordinates.ROWS; i++) {
+            for (int j = 0; j < Coordinates.COLUMNS; j++) {
+            	if(!this.getGameBoard()[i][j].contains(Board.TOKEN_NULL)) {
+            		contador++;
+            	}
+            }
+    	}
+    	if(contador == 6) {
+    		return true;
+    	}else{
+    		return false;
+    	}
+    }
+
  
 	public boolean taTeTiWin() {
 		String invertedDiagonal = "";
@@ -70,14 +85,9 @@ public class Board {
     	this.gameBoard[fila-1][columna-1] = activePlayer;
     }
     
-    public void moveToken(int fila, int columna, String activePlayer) {
-    	int nuevaFila = 0;
-    	int nuevaColumna = 0;
-    	do {
-    		if (!this.coordinates.isOccupied(fila, columna) == true) {
-    			this.gameBoard[fila][columna] = Board.TOKEN_NULL;
-    			this.gameBoard[nuevaFila][nuevaColumna] = activePlayer; 
-    		}
-    	} while (this.game.isFinished() == true && !this.taTeTiWin() == true);
+    public void moveToken(int fila, int columna) {
+    	do {	
+	    	this.gameBoard[fila-1][columna-1] = Board.TOKEN_NULL;  
+    	} while (this.isMovement() == true && !this.taTeTiWin() == true);
     }
 }
