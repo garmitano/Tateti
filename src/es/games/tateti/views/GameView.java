@@ -1,18 +1,20 @@
 package es.games.tateti.views;
 
+import java.util.Scanner;
 import es.games.tateti.models.Board;
 import es.games.tateti.models.Coordinates;
 import es.games.tateti.models.Turn;
-import es.games.tateti.utils.YesNoDialog;
 
 public class GameView {
+	public Scanner sc = new Scanner(System.in);
+	private String answer = "";
+	private boolean error;
     private final BoardView boardView;
     private final TurnView turnView;
     private final Turn turn;
     private final Board board;
-	private final YesNoDialog yesNoDialog;
 	private final Coordinates coordinates;
-
+	
 
     public GameView() {
     	this.turn = new Turn();
@@ -20,14 +22,32 @@ public class GameView {
         this.boardView = new BoardView(this.board);
 		this.coordinates = new Coordinates(this.board);
         this.turnView = new TurnView(this.board, this.coordinates);
-        this.yesNoDialog = new YesNoDialog();
     }
-
+    
+    
+	public boolean isAfirmative() {
+		return answer.equalsIgnoreCase("si");
+	}
+	public boolean isNegative() {
+		return answer.equalsIgnoreCase("no");
+	}
+	
+	public boolean read() {
+		do {
+			System.out.println("Desea jugar otra vez?");
+			this.answer = sc.nextLine(); 
+			error = !this.isAfirmative() && !this.isNegative();
+			if (error) {
+				System.out.println("Debe completar con si o no");
+			}
+		} while (error);
+		return error;
+	}
 
     public void playGames() { 
     	do {
     		this.playGame();
-    	}while(this.yesNoDialog.read() == this.yesNoDialog.isNegative());
+    	}while(this.read() == this.isNegative());
     }
     
     public void playGame() {
