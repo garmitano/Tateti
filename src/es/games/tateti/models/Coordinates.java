@@ -13,7 +13,7 @@ public class Coordinates {
     	this.board = board;
     }
     
-    
+
     public boolean isCorrect(int numero) {
     	closedIntervals = new ClosedIntervals(0, Coordinates.COLUMNS);
     	return !closedIntervals.isIncluded(numero);

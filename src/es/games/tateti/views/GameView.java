@@ -2,7 +2,6 @@ package es.games.tateti.views;
 
 import es.games.tateti.models.Board;
 import es.games.tateti.models.Coordinates;
-import es.games.tateti.models.Game;
 import es.games.tateti.models.Turn;
 import es.games.tateti.utils.YesNoDialog;
 
@@ -12,14 +11,12 @@ public class GameView {
     private final Turn turn;
     private final Board board;
 	private final YesNoDialog yesNoDialog;
-	private final Game game;
 	private final Coordinates coordinates;
 
 
     public GameView() {
     	this.turn = new Turn();
         this.board = new Board();
-        this.game = new Game(this.board);
         this.boardView = new BoardView(this.board);
 		this.coordinates = new Coordinates(this.board);
         this.turnView = new TurnView(this.board, this.coordinates);
@@ -42,7 +39,7 @@ public class GameView {
         	activePlayer = this.turn.getActivePlayer();
             this.turnView.interact(activePlayer);
             this.boardView.showBoard();
-        } while(this.game.isFinished() != true);
+        } while(!this.board.taTeTiWin());
         this.boardView.showResult(activePlayer);
     }
 }
